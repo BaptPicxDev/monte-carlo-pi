@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
 ## Librairies 
-import os 
-import sys 
 import math
 import random
 from datetime import datetime
 
 ## Environment 
-PROJECT_PATH = os.getcwd()
 SQUARE_SIDE_LENGTH = 1 
 CIRCLE_DIAMETER = 1
 
@@ -23,24 +20,24 @@ CONFIGURATION = """
 
 ## Function 
 def square() :
-	perimeter = SQUARE_SIDE_LENGTH * 4 
-	area = SQUARE_SIDE_LENGTH * SQUARE_SIDE_LENGTH
-	return 0 
+	square_perimeter = SQUARE_SIDE_LENGTH * 4 
+	square_area = SQUARE_SIDE_LENGTH * SQUARE_SIDE_LENGTH
+	return square_perimeter, square_area
 
 def circle() :
-	perimeter = math.pi * CIRCLE_DIAMETER
-	area = math.pi * (CIRCLE_DIAMETER * CIRCLE_DIAMETER) / 4 
-	return 0
+	circle_perimeter = math.pi * CIRCLE_DIAMETER
+	circle_area = math.pi * (CIRCLE_DIAMETER * CIRCLE_DIAMETER) / 4 
+	return circle_perimeter, circle_area 
 
 if __name__ == '__main__' :
 	start = datetime.now()
 	print(CONFIGURATION)
 	tot_circle, n_iter = 0, 100000
 	for i in range(n_iter) :
-		x_pos = random.uniform(0, 1)
-		y_pos = random.uniform(0, 1)
-		distance = x_pos ** 2 + y_pos**2
-		if distance <= CIRCLE_DIAMETER**2 :
+		x_pos, y_pos = random.uniform(0, 1), random.uniform(0, 1) # Define random positions.
+		straight_line_length = x_pos ** 2 + y_pos**2 # Calculate the length of the straight line from the center (0,0) to the point (x_pox, y_pos)
+		if straight_line_length <= CIRCLE_DIAMETER**2 :
 			tot_circle+=1
+		
 	print("Using Monte-Carlo method, with {} iterations, we approximate pi = {}.\n".format(n_iter, 4*tot_circle/n_iter))
 	print("It takes {} seconds to reach the end of the code.".format((datetime.now() - start).seconds))
